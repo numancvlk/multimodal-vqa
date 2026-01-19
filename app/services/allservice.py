@@ -1,15 +1,8 @@
 # LIBRARIES
-import os
-from dotenv import load_dotenv
 from PIL import Image
 from app.models.blip import BlipModel
 from app.models.clip import ClipModel
 from app.models.llama import LlamaModel
-
-load_dotenv()
-
-# HYPERPARAMETERS
-THRESHOLD = os.getenv("CLIP_THRESHOLD")
 
 blip_model = BlipModel()
 clip_model = ClipModel()
@@ -27,25 +20,24 @@ def process_request(image: Image.Image, question: str):
         text= caption
     )
 
-    threshold = float(THRESHOLD)
-
-    warnMessage = ""
-
-    if confidenceScore < threshold:
-        warnMessage = "(WARNING: The visual could not be fully understood; approach this information with caution.)"
-
     # 3. ADIM MODELE GEREKLI BILGILERI VERIYORUM
     prompt = f"""
-    You are an intelligent assistant with visual perception capabilities.
-    Below, there is a description (caption) of an image and the user's question.
+    You are a helpful AI assistant capable of analyzing images.
+    I will provide you with a description of an image (Caption) and a User Question.
 
-    Image Description: {caption}
-    Accuracy Confidence: {confidenceScore:.2f} {warnMessage}
+    CONTEXT:
+    - Image Description: "{caption}"
+    - System Confidence Score: {confidenceScore:.2f} (Internal metric, do not mention this to the user)
+
+    INSTRUCTIONS:
+    1. Answer the user's question DIRECTLY and CLEARLY based on the Image Description.
+    2. Assume the Image Description is correct. Do not apologize or say "I am not sure".
+    3. Do NOT mention the confidence score or the internal process in your final answer.
+    4. If the question asks for a count (how many), use the description to estimate.
 
     User Question: {question}
-
-    Please provide a logical and helpful answer based on the image description.
-    Give the answer in English.
+    
+    Answer:
     """
 
     # 4. ADIM CEVAP URETIYORUZ BU KISIMDA

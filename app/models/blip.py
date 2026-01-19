@@ -24,7 +24,10 @@ class BlipModel:
 
         outputs = self.model.generate( #MODELDEN CIKTI ALIYORUZ AMA MAX 50 KELIME OLSUN TOKEN
             **inputs,
-            max_new_tokens = 50
+            max_new_tokens = 150,
+            min_length = 30, #EN AZ 30 TOKEN KONUS
+            num_beams = 5, #SENARYO SAYISI 5 INDEN EN IYISINI SECIYORUZ
+            repetition_penalty = 1.5 # AYNI SEYLERI TEKRARLAMA 
         )
 
         caption = self.processor.decode( #MODEL BIZE SAYISAL CIKTI DONDU BIZ ONU TEKRAR YAZIYA CEVIRIYORUZ
