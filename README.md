@@ -41,7 +41,7 @@ Projeyi yerel makinenizde çalıştırmak için aşağıdaki adımları izleyin.
 
 ### 1. Gereksinimler
 * Python 3.10 veya üzeri
-* [Ollama](https://ollama.com/) (Llama modelini çalıştırmak için)
+* Ollama (Llama modelini çalıştırmak için)
 * Gerekli kütüphaneleri yükleyin.
 ```bash
   pip install -r requirements.txt
@@ -109,7 +109,7 @@ Follow the steps below to run the project on your local machine.
 
 ### 1. Requirements
 * Python 3.10 or higher
-* [Ollama](https://ollama.com/) (Running the Llama Model)
+* Ollama (Running the Llama Model)
 * Install the required libraries.
 ```bash
   pip install -r requirements.txt
