@@ -55,10 +55,10 @@ with col2:
                         else:
                             st.warning("No answer generated.")
 
-                        st.markdown("### BLIP Perception")
+                        st.markdown("### BLIP Caption")
                         st.info(result['caption'])
 
-                        st.markdown("### CLIP Confidence")
+                        st.markdown("### CLIP Similarity Score")
                         score = result['confidence_score']
                         st.progress(score)
                         
