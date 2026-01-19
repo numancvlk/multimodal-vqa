@@ -29,7 +29,7 @@ with col1:
 with col2:
     st.subheader("2. Ask Question")
     
-    question = st.text_input("What do you want to know about the image?", placeholder="e.g., How many cats are there?")
+    question = st.text_input("What do you want to know about the image?", placeholder="e.g., How many birds are there?")
     btn_disabled = (uploaded_file is None)
     analyze_btn = st.button("Run Analysis", type="primary", disabled=btn_disabled, width='stretch')
 

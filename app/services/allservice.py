@@ -20,20 +20,32 @@ def process_request(image: Image.Image, question: str):
         text= caption
     )
 
+
+    ai_attitude = """
+    1. Answer the user's question DIRECTLY and CLEARLY based on the Image Description.
+    2. Assume the Image Description is correct. Do not apologize.
+    """
+
+    if confidenceScore < 0.25:
+        ai_attitude = """
+        1. The image description might be INACCURATE due to low confidence.
+        2. Answer cautiously. You can say 'It appears to be...' or 'It might be...'.
+        3. If the user asks for specific details, warn them that the image is unclear.
+        """
+
     # 3. ADIM MODELE GEREKLI BILGILERI VERIYORUM
     prompt = f"""
-    You are a helpful AI assistant capable of analyzing images.
-    I will provide you with a description of an image (Caption) and a User Question.
-
+    You are a helpful AI assistant analyzing an image.
+    
     CONTEXT:
     - Image Description: "{caption}"
-    - System Confidence Score: {confidenceScore:.2f} (Internal metric, do not mention this to the user)
+    - Confidence Score: {confidenceScore:.2f}
 
     INSTRUCTIONS:
-    1. Answer the user's question DIRECTLY and CLEARLY based on the Image Description.
-    2. Assume the Image Description is correct. Do not apologize or say "I am not sure".
-    3. Do NOT mention the confidence score or the internal process in your final answer.
-    4. If the question asks for a count (how many), use the description to estimate.
+    {ai_attitude}
+    
+    3. Do NOT mention the confidence score number in your final answer.
+    4. If the question asks for a count, estimate based on description.
 
     User Question: {question}
     
